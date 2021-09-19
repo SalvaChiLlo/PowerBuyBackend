@@ -1,21 +1,22 @@
 module.exports = {
   // Server IP
-  ip: process.env.HEROKU_IP || process.env.IP || undefined,
+  ip: process.env.PRODUCTION_IP || process.env.IP || undefined,
 
   // Server port
-  port: process.env.HEROKU_PORT || process.env.PORT || 9000,
+  port: process.env.PRODUCTION_PORT || process.env.PORT || 9000,
 
   sequelize:
   {
-    username: 'root',
-    password: 'adminadmin',
-    database: 'sequelize_database_production',
-    host: 'omv.local',
-    dialect: 'mysql',
+    username: process.env.PRODUCTION_USERNAME,
+    password: process.env.PRODUCTION_PASSWORD,
+    database: process.env.PRODUCTION_DATABASE,
+    host: process.env.PRODUCTION_DB_HOST,
+    dialect: process.env.PRODUCTION_DIALECT,
     ssl: true,
     dialectOptions: {
       ssl: {
         require: true,
+        rejectUnauthorized: false,
       },
     },
   },

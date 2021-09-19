@@ -1,15 +1,21 @@
-const jwt = require('jsonwebtoken');
+'use strict';
+
 const { User } = require('../../sqldb');
-const config = require('../../config/environment');
+const config = require('./../../config/environment');
+const jwt = require('jsonwebtoken');
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
-  return (err) => res.status(statusCode).json(err);
+  return (err) => {
+    return res.status(statusCode).json(err);
+  };
 }
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return (err) => res.status(statusCode).send(err);
+  return (err) => {
+    return res.status(statusCode).send(err);
+  };
 }
 
 /**
@@ -23,10 +29,12 @@ function index(req, res) {
       'name',
       'email',
       'role',
-      'provider',
     ],
   })
-    .then((users) => {
+    .then(users => {
+      users.forEach(user => {
+        console.log(user.getFullName());
+      });
       res.status(200).json(users);
     })
     .catch(handleError(res));
@@ -55,16 +63,16 @@ function create(req, res) {
 function show(req, res, next) {
   const { id } = req.params;
 
-  return User.find({
+  return User.findAll({
     where: { id },
   })
-    .then((user) => {
+    .then(user => {
       if (!user) {
         return res.status(404).end();
       }
-      res.json(user.profile);
+      res.json(user);
     })
-    .catch((err) => next(err));
+    .catch(err => next(err));
 }
 
 /**
@@ -92,7 +100,7 @@ function changePassword(req, res) {
       id: userId,
     },
   })
-    .then((user) => {
+    .then(user => {
       if (user.authenticate(oldPass)) {
         user.password = newPass;
         return user.save()
@@ -100,36 +108,10 @@ function changePassword(req, res) {
             res.status(204).end();
           })
           .catch(validationError(res));
+      } else {
+        return res.status(403).end();
       }
-      return res.status(403).end();
     });
-}
-
-/**
- * Get my info
- */
-function me(req, res, next) {
-  const userId = req.user._id;
-
-  return User.find({
-    where: {
-      id: userId,
-    },
-    attributes: [
-      'id',
-      'name',
-      'email',
-      'role',
-      'provider',
-    ],
-  })
-    .then((user) => { // don't ever give out the password or salt
-      if (!user) {
-        return res.status(401).end();
-      }
-      res.json(user);
-    })
-    .catch((err) => next(err));
 }
 
 module.exports = {
@@ -138,5 +120,4 @@ module.exports = {
   create,
   destroy,
   changePassword,
-  me,
 };

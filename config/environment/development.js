@@ -1,4 +1,3 @@
-const winston = require('winston');
 require('dotenv').config();
 
 module.exports = {
@@ -8,9 +7,7 @@ module.exports = {
     database: 'sequelize_database_development',
     host: 'omv.local',
     dialect: 'mysql',
-    logging: (msg) => winston.info(msg),
+    logging: console.log,
   },
-
-  // Seed database on startup
   seedDB: false,
 };
