@@ -2,7 +2,7 @@
 
 const { Router } = require('express');
 
-const User = require('./user.controller');
+const User = require('./lote.controller');
 
 const router = new Router();
 
