@@ -1,6 +1,6 @@
 'use strict';
 
-const { User } = require('../../sqldb');
+const { Cliente } = require('../../sqldb');
 const config = require('../../config/environment');
 const jwt = require('jsonwebtoken');
 
@@ -23,7 +23,7 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 function index(req, res) {
-  return User.findAll({
+  return Cliente.findAll({
     attributes: [
       'id',
       'name',
@@ -44,7 +44,7 @@ function index(req, res) {
  * Creates a new user
  */
 function create(req, res) {
-  const newUser = User.build(req.body);
+  const newUser = Cliente.build(req.body);
   newUser.setDataValue('provider', 'local');
   newUser.setDataValue('role', 'user');
   return newUser.save()
@@ -63,7 +63,7 @@ function create(req, res) {
 function show(req, res, next) {
   const { id } = req.params;
 
-  return User.findAll({
+  return Cliente.findAll({
     where: { id },
   })
     .then(user => {
@@ -80,7 +80,7 @@ function show(req, res, next) {
  * restriction: 'admin'
  */
 function destroy(req, res) {
-  return User.destroy({ where: { id: req.params.id } })
+  return Cliente.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(204).end();
     })
@@ -95,7 +95,7 @@ function changePassword(req, res) {
   const oldPass = String(req.body.oldPassword);
   const newPass = String(req.body.newPassword);
 
-  return User.find({
+  return Cliente.find({
     where: {
       id: userId,
     },
