@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Pago.belongsTo(models.LoteProducto);
-      Pago.belongsTo(models.Cliente)
+      Pago.hasOne(models.LoteProducto);
+      Pago.hasOne(models.Cliente)
     }
   };
   Pago.init({
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Cliente',
+    modelName: 'Pago',
     freezeTableName: true,
   });
   return Pago;
