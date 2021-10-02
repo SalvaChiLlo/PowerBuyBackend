@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '_-_-_-',
     },
     email: DataTypes.STRING,
+    imageURL: {
+      type: DataTypes.STRING,
+      defaultValue: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+    }
   }, {
     sequelize,
     modelName: 'User',
