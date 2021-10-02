@@ -1,427 +1,61 @@
 'use strict';
 
 const { User } = require('./sqldb');
-
-User.destroy({ where: {} })
-  .then(() => User.bulkCreate(
-    [
-      {
-        name: 'Admin',
-        role: 'admin',
-        password: 'admin',
-        salt: 'Rachael',
-        provider: 'Waller',
-        email: 'admin@admin.com',
-      },
-      {
-        name: 'Cassie Wyatt',
-        role: 'admin',
-        password: '5b0f78cb4ee116caac2330e3',
-        salt: 'Fay',
-        provider: 'Manning',
-        email: 'fay.manning@manning.net',
-      },
-      {
-        name: 'Campos Barron',
-        role: 'admin',
-        password: '5b0f78cb83057777b5cc81bf',
-        salt: 'Gibbs',
-        provider: 'Robertson',
-        email: 'gibbs.robertson@robertson.me',
-      },
-      {
-        name: 'Alison Odom',
-        role: 'admin',
-        password: '5b0f78cb291c83b120de9316',
-        salt: 'Wall',
-        provider: 'Alexander',
-        email: 'wall.alexander@alexander.name',
-      },
-      {
-        name: 'Merrill Leonard',
-        role: 'guest',
-        password: '5b0f78cb57f4b475bf91634b',
-        salt: 'Short',
-        provider: 'Rodriquez',
-        email: 'short.rodriquez@rodriquez.biz',
-      },
-      {
-        name: 'Therese Horton',
-        role: 'guest',
-        password: '5b0f78cbe4bd82be67fc44a9',
-        salt: 'Abbott',
-        provider: 'Pope',
-        email: 'abbott.pope@pope.com',
-      },
-      {
-        name: 'Leigh Daniels',
-        role: 'admin',
-        password: '5b0f78cb99f36aa34e6f8e2d',
-        salt: 'Mckee',
-        provider: 'Dunlap',
-        email: 'mckee.dunlap@dunlap.org',
-      },
-      {
-        name: 'Fox Ortiz',
-        role: 'guest',
-        password: '5b0f78cbb3f4ff9a9928c76a',
-        salt: 'Sargent',
-        provider: 'Sampson',
-        email: 'sargent.sampson@sampson.io',
-      },
-      {
-        name: 'Terra Vincent',
-        role: 'user',
-        password: '5b0f78cb743d6d5be1e26dd1',
-        salt: 'Minnie',
-        provider: 'Rivera',
-        email: 'minnie.rivera@rivera.tv',
-      },
-      {
-        name: 'Olivia Meyers',
-        role: 'admin',
-        password: '5b0f78cb9b62bab13e90d317',
-        salt: 'Chapman',
-        provider: 'Leach',
-        email: 'chapman.leach@leach.ca',
-      },
-      {
-        name: 'Lana Hunt',
-        role: 'user',
-        password: '5b0f78cb464f1c54b07d60ec',
-        salt: 'Bettie',
-        provider: 'Bruce',
-        email: 'bettie.bruce@bruce.us',
-      },
-      {
-        name: 'Adkins Roth',
-        role: 'admin',
-        password: '5b0f78cb7a47398e3493eb71',
-        salt: 'Tricia',
-        provider: 'Serrano',
-        email: 'tricia.serrano@serrano.biz',
-      },
-      {
-        name: 'April Riley',
-        role: 'guest',
-        password: '5b0f78cb334e8499b74edfb2',
-        salt: 'Carissa',
-        provider: 'Velez',
-        email: 'carissa.velez@velez.info',
-      },
-      {
-        name: 'Eliza Goodman',
-        role: 'guest',
-        password: '5b0f78cb5d259a5fb9fbf9b2',
-        salt: 'Willis',
-        provider: 'Finch',
-        email: 'willis.finch@finch.net',
-      },
-      {
-        name: 'Rhonda Chase',
-        role: 'user',
-        password: '5b0f78cb79551c7f1f6c3d6e',
-        salt: 'Hatfield',
-        provider: 'Jimenez',
-        email: 'hatfield.jimenez@jimenez.me',
-      },
-      {
-        name: 'Nona Flowers',
-        role: 'user',
-        password: '5b0f78cb41a5477c8d6bf1b6',
-        salt: 'Hahn',
-        provider: 'Marsh',
-        email: 'hahn.marsh@marsh.name',
-      },
-      {
-        name: 'Fowler Hooper',
-        role: 'guest',
-        password: '5b0f78cb19f27a2c639e1565',
-        salt: 'Mathews',
-        provider: 'Long',
-        email: 'mathews.long@long.biz',
-      },
-      {
-        name: 'Lynnette Fischer',
-        role: 'user',
-        password: '5b0f78cb9432c81cd990050d',
-        salt: 'Ann',
-        provider: 'Sweeney',
-        email: 'ann.sweeney@sweeney.com',
-      },
-      {
-        name: 'Deana Gentry',
-        role: 'guest',
-        password: '5b0f78cbe10dd76b9eab0c96',
-        salt: 'Glass',
-        provider: 'Steele',
-        email: 'glass.steele@steele.org',
-      },
-      {
-        name: 'Jayne Hardin',
-        role: 'admin',
-        password: '5b0f78cb0bbdd59945d38336',
-        salt: 'Rollins',
-        provider: 'Davenport',
-        email: 'rollins.davenport@davenport.io',
-      },
-      {
-        name: 'Carlene Brennan',
-        role: 'admin',
-        password: '5b0f78cbaecc388ee2446a5f',
-        salt: 'Cynthia',
-        provider: 'Roach',
-        email: 'cynthia.roach@roach.tv',
-      },
-      {
-        name: 'Harmon Meadows',
-        role: 'user',
-        password: '5b0f78cb63555de2a9c4b7a9',
-        salt: 'Mason',
-        provider: 'George',
-        email: 'mason.george@george.ca',
-      },
-      {
-        name: 'Boyle Ward',
-        role: 'guest',
-        password: '5b0f78cbe526c4cba9ce41c5',
-        salt: 'Dana',
-        provider: 'Head',
-        email: 'dana.head@head.us',
-      },
-      {
-        name: 'Pearl Beach',
-        role: 'user',
-        password: '5b0f78cbd464c2f07bcbc388',
-        salt: 'Tammie',
-        provider: 'Yang',
-        email: 'tammie.yang@yang.biz',
-      },
-      {
-        name: 'Augusta Bernard',
-        role: 'admin',
-        password: '5b0f78cbc785f57c9f6272de',
-        salt: 'Haley',
-        provider: 'Mueller',
-        email: 'haley.mueller@mueller.info',
-      },
-      {
-        name: 'Francis Mays',
-        role: 'guest',
-        password: '5b0f78cb4a1d2c87511b9372',
-        salt: 'Sally',
-        provider: 'Vega',
-        email: 'sally.vega@vega.net',
-      },
-      {
-        name: 'Stone Oneil',
-        role: 'admin',
-        password: '5b0f78cb0496b58e0964afbd',
-        salt: 'Meredith',
-        provider: 'Francis',
-        email: 'meredith.francis@francis.me',
-      },
-      {
-        name: 'Jerry Floyd',
-        role: 'admin',
-        password: '5b0f78cba538088592729c9b',
-        salt: 'Alta',
-        provider: 'Battle',
-        email: 'alta.battle@battle.name',
-      },
-      {
-        name: 'Freeman Kinney',
-        role: 'user',
-        password: '5b0f78cb06716938809b378b',
-        salt: 'Lindsey',
-        provider: 'Foster',
-        email: 'lindsey.foster@foster.biz',
-      },
-      {
-        name: 'Sandra Ruiz',
-        role: 'user',
-        password: '5b0f78cb31b8353116e31e14',
-        salt: 'Yesenia',
-        provider: 'Torres',
-        email: 'yesenia.torres@torres.com',
-      },
-      {
-        name: 'Myra Kane',
-        role: 'admin',
-        password: '5b0f78cbf1df5007fb1d6dd6',
-        salt: 'Bernadette',
-        provider: 'Talley',
-        email: 'bernadette.talley@talley.org',
-      },
-      {
-        name: 'Tara Rush',
-        role: 'admin',
-        password: '5b0f78cb4ee489a93657f650',
-        salt: 'Flossie',
-        provider: 'Delaney',
-        email: 'flossie.delaney@delaney.io',
-      },
-      {
-        name: 'Evelyn Brown',
-        role: 'admin',
-        password: '5b0f78cbf0a270bfe8b3e910',
-        salt: 'Austin',
-        provider: 'Richard',
-        email: 'austin.richard@richard.tv',
-      },
-      {
-        name: 'Elvia Powers',
-        role: 'guest',
-        password: '5b0f78cb75df29f73a3cb209',
-        salt: 'Lola',
-        provider: 'Todd',
-        email: 'lola.todd@todd.ca',
-      },
-      {
-        name: 'Freida Parsons',
-        role: 'admin',
-        password: '5b0f78cb60fd5b3a64ba4a32',
-        salt: 'Shaw',
-        provider: 'Bennett',
-        email: 'shaw.bennett@bennett.us',
-      },
-      {
-        name: 'Gallegos Barry',
-        role: 'guest',
-        password: '5b0f78cbc069d25102ec66f1',
-        salt: 'Virgie',
-        provider: 'Peck',
-        email: 'virgie.peck@peck.biz',
-      },
-      {
-        name: 'Kimberly Fitzpatrick',
-        role: 'user',
-        password: '5b0f78cbca86851f411cdcc5',
-        salt: 'Bryan',
-        provider: 'Ferguson',
-        email: 'bryan.ferguson@ferguson.info',
-      },
-      {
-        name: 'Bean Jackson',
-        role: 'admin',
-        password: '5b0f78cb248f3da07e2a6911',
-        salt: 'Henson',
-        provider: 'Owen',
-        email: 'henson.owen@owen.net',
-      },
-      {
-        name: 'Josephine Mayo',
-        role: 'admin',
-        password: '5b0f78cb61b68c74ecc6150f',
-        salt: 'Rhea',
-        provider: 'Ingram',
-        email: 'rhea.ingram@ingram.me',
-      },
-      {
-        name: 'Rae Hood',
-        role: 'admin',
-        password: '5b0f78cb7712be2c760d858c',
-        salt: 'Janie',
-        provider: 'Carson',
-        email: 'janie.carson@carson.name',
-      },
-      {
-        name: 'Casandra Matthews',
-        role: 'admin',
-        password: '5b0f78cbdaad1ec5f3167fc6',
-        salt: 'Hutchinson',
-        provider: 'Travis',
-        email: 'hutchinson.travis@travis.biz',
-      },
-      {
-        name: 'Dunn Porter',
-        role: 'guest',
-        password: '5b0f78cb4bd821718b9a5867',
-        salt: 'Gutierrez',
-        provider: 'Hebert',
-        email: 'gutierrez.hebert@hebert.com',
-      },
-      {
-        name: 'Rose Mayer',
-        role: 'admin',
-        password: '5b0f78cbb4bbe0930fe6ced1',
-        salt: 'Franco',
-        provider: 'Hernandez',
-        email: 'franco.hernandez@hernandez.org',
-      },
-      {
-        name: 'Kathie Duncan',
-        role: 'admin',
-        password: '5b0f78cb021fb3c391d61d51',
-        salt: 'Horton',
-        provider: 'Garner',
-        email: 'horton.garner@garner.io',
-      },
-      {
-        name: 'Eula Thompson',
-        role: 'user',
-        password: '5b0f78cb725b9ae2a040d8f8',
-        salt: 'Bullock',
-        provider: 'Whitney',
-        email: 'bullock.whitney@whitney.tv',
-      },
-      {
-        name: 'Harriett Blankenship',
-        role: 'admin',
-        password: '5b0f78cb83f2035bf485b92b',
-        salt: 'Fletcher',
-        provider: 'Lester',
-        email: 'fletcher.lester@lester.ca',
-      },
-      {
-        name: 'Elba Christensen',
-        role: 'user',
-        password: '5b0f78cb85a05022b7bfccd0',
-        salt: 'Morton',
-        provider: 'David',
-        email: 'morton.david@david.us',
-      },
-      {
-        name: 'Brittany Newman',
-        role: 'user',
-        password: '5b0f78cb878ac975e3e6c43e',
-        salt: 'Neva',
-        provider: 'Lawrence',
-        email: 'neva.lawrence@lawrence.biz',
-      },
-      {
-        name: 'Valerie Hendrix',
-        role: 'guest',
-        password: '5b0f78cb540461ed1940edc9',
-        salt: 'Marcia',
-        provider: 'Butler',
-        email: 'marcia.butler@butler.info',
-      },
-      {
-        name: 'Angeline Glenn',
-        role: 'user',
-        password: '5b0f78cb0781aa8226d8bd41',
-        salt: 'Fannie',
-        provider: 'Hawkins',
-        email: 'fannie.hawkins@hawkins.net',
-      },
-      {
-        name: 'Lakisha Norman',
-        role: 'guest',
-        password: '5b0f78cb7b8ddf97f64834d4',
-        salt: 'Lindsey',
-        provider: 'Hayes',
-        email: 'lindsey.hayes@hayes.me',
-      },
-      {
-        name: 'Irene Reese',
-        role: 'guest',
-        password: '5b0f78cb675780d96b640f61',
-        salt: 'Hope',
-        provider: 'Bonner',
-        email: 'hope.bonner@bonner.name',
-      },
-    ],
+const { Cliente } = require('./sqldb');
+const { Pago } = require('./sqldb');
+const { Caracteristica } = require('./sqldb');
+const { CategoriaProducto } = require('./sqldb');
+const { Imagen } = require('./sqldb');
+const { LoteProducto } = require('./sqldb');
+const { Opinion } = require('./sqldb');
+const { Producto } = require('./sqldb');
+Cliente.destroy({ where: {} })
+  .then(() => Cliente.bulkCreate(
+    generateClientes()
   )
-    .then(() => console.log('finished populating users'))
-    .catch(err => console.log('error populating users', err)));
+    .then(() => console.log('finished populating clients'))
+    .catch(err => console.log('error populating clients', err)));
+
+Producto.destroy({ where: {} })
+  .then(() => Producto.bulkCreate(
+    generateProductos()
+  )
+    .then(() => console.log('finished populating productos'))
+    .catch(err => console.log('error populating productos', err)));
+
+
+function generateClientes() {
+  const userList = [
+    {
+      username: 'Admin',
+      password: 'admin',
+      email: 'admin@admin.com',
+    }
+  ]
+
+  for (let i = 0; i < 5; i++) {
+    userList.push(
+      {
+        username: `User${i}`,
+        password: '12345678',
+        email: `user${i}@user${i}.com`,
+      }
+    )
+  }
+  return userList;
+}
+
+function generateProductos() {
+  const productList = []
+
+  for (let i = 0; i < 50; i++) {
+    productList.push(
+      {
+        nombre: `Producto${i}`,
+        descripcion: `Descripcion${i}`
+      }
+    )
+  }
+
+  return productList;
+}
