@@ -1,6 +1,6 @@
 'use strict';
 
-const { Opinion } = require('../../sqldb');
+const { User } = require('../../sqldb');
 const config = require('../../config/environment');
 const jwt = require('jsonwebtoken');
 
@@ -23,7 +23,7 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 function index(req, res) {
-  return Opinion.findAll({
+  return User.findAll({
     attributes: [
       'id',
       'name',
@@ -44,7 +44,7 @@ function index(req, res) {
  * Creates a new user
  */
 function create(req, res) {
-  const newUser = Opinion.build(req.body);
+  const newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
   newUser.setDataValue('role', 'user');
   return newUser.save()
@@ -63,7 +63,7 @@ function create(req, res) {
 function show(req, res, next) {
   const { id } = req.params;
 
-  return Opinion.findAll({
+  return User.findAll({
     where: { id },
   })
     .then(user => {
@@ -80,7 +80,7 @@ function show(req, res, next) {
  * restriction: 'admin'
  */
 function destroy(req, res) {
-  return Opinion.destroy({ where: { id: req.params.id } })
+  return User.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(204).end();
     })
@@ -95,7 +95,7 @@ function changePassword(req, res) {
   const oldPass = String(req.body.oldPassword);
   const newPass = String(req.body.newPassword);
 
-  return Opinion.find({
+  return User.find({
     where: {
       id: userId,
     },

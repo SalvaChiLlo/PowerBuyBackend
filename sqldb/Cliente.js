@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Cliente.hasMany(models.CategoriaProducto);
     }
   };
   Cliente.init({
@@ -33,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    imageURL: {
+      type: DataTypes.STRING,
+      defaultValue: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+    }
   }, {
     sequelize,
     modelName: 'Cliente',

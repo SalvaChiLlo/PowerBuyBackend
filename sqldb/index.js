@@ -10,7 +10,6 @@ const db = {
 // // Insert models below
 db.Cliente = require('./Cliente')(db.sequelize, Sequelize.DataTypes);
 db.CategoriaProducto = require('./Producto/CategoriaProducto')(db.sequelize, Sequelize.DataTypes);
-db.Imagen = require('./Producto/Imagen')(db.sequelize, Sequelize.DataTypes);
 db.Opinion = require('./Producto/Opinion')(db.sequelize, Sequelize.DataTypes);
 db.Producto = require('./Producto/Producto')(db.sequelize, Sequelize.DataTypes);
 

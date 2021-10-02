@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Producto.hasMany(models.Imagen);
       Producto.hasMany(models.Opinion);
     }
   };
@@ -26,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     descripcion: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
     cantidadDisponible: {
       type: DataTypes.INTEGER,
@@ -34,7 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: Math.floor(Math.random() * (200 - 100)) + 100
     },
     caracteristicas: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      defaultValue: ''
+    },
+    imagenes: {
+      type: DataTypes.TEXT,
       defaultValue: ''
     }
   }, {
