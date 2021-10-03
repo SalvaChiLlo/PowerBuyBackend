@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Producto.hasMany(models.Opinion);
+      Producto.belongsToMany(models.CategoriaProducto, {
+        through: models.Categoria,
+        as: 'Categorias'
+      })
     }
   };
   Producto.init({
@@ -44,7 +48,12 @@ module.exports = (sequelize, DataTypes) => {
     imagenes: {
       type: DataTypes.TEXT,
       defaultValue: ''
-    }
+    },
+    precio: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: 1000.0
+    },
   }, {
     sequelize,
     modelName: 'Producto',

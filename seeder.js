@@ -36,7 +36,6 @@ CategoriaProducto.destroy({ where: {} })
         )
           .then(() => {
             console.log('finished populating clients')
-            console.log(intereses)
             Interes.destroy({ where: {} })
               .then(() => Interes.bulkCreate(
                 intereses
@@ -56,11 +55,14 @@ CategoriaProducto.destroy({ where: {} })
                       .then(() => console.log('finished populating opiniones'))
                       .catch(err => console.log('error populating opiniones', err)));
                   Categoria.destroy({ where: {} })
-                    .then(() => Categoria.bulkCreate(
-                      categories
-                    )
-                      .then(() => console.log('finished populating Categoria'))
-                      .catch(err => console.log('error populating Categoria', err)));
+                    .then(() => {
+                      console.log(categories, 'CATEGORIAS')
+                      Categoria.bulkCreate(
+                        categories
+                      )
+                        .then(() => console.log('finished populating Categoria'))
+                        .catch(err => console.log('error populating Categoria', err))
+                    });
                 })
                 .catch(err => console.log('error populating productos', err)));
           })
@@ -100,6 +102,8 @@ function generateClientes() {
 function generateProductos() {
   const productList = products.map((product, index) => {
     chooseCategories(product, index + 1)
+    console.log(index + 1, 'INDEXXX')
+    console.log(categories)
     const cantidadInicial = Math.floor(Math.random() * (200 - 100)) + 100;
     return {
       id: index + 1,
@@ -108,7 +112,8 @@ function generateProductos() {
       cantidadDisponible: Math.floor(Math.random() * cantidadInicial),
       cantidadInicial,
       caracteristicas: JSON.stringify(product.feature)?.replace('Amazon', 'PowerBuy').replace('amazon', 'PowerBuy'),
-      imagenes: JSON.stringify(product.image)
+      imagenes: JSON.stringify(product.image),
+      precio: product.price ? product.price : 2590.90
     }
   })
   return productList;
@@ -122,7 +127,7 @@ function generateOpinions() {
     return {
       id: index + 1,
       valoracion: valoraciones[Math.floor(Math.random() * valoraciones.length)],
-      opinion: '' /* lorem.generateParagraphs(Math.ceil(Math.random() * 5)) */,
+      opinion: lorem.generateParagraphs(Math.ceil(Math.random() * 5)),
       ClienteId: cli,
       ProductoId: prod
     }
@@ -170,11 +175,26 @@ function generateCategories() {
     {
       categoria: 'Chuwi'
     },
+    {
+      categoria: 'CHiQ'
+    },
+    {
+      categoria: 'Google'
+    },
+    {
+      categoria: 'LG'
+    },
+    {
+      categoria: 'Philips'
+    },
+    {
+      categoria: 'Samsung'
+    },
+
   ]
 }
 
 function chooseCategories(product, productId) {
-
   switch (product.type) {
     case 'CAMERA':
       categories.push({
@@ -194,8 +214,44 @@ function chooseCategories(product, productId) {
         ProductoId: productId
       });
       break;
+    case 'TV':
+      categories.push({
+        CategoriaProductoCategoria: 'Televisores',
+        ProductoId: productId
+      });
+      break;
   }
 
+  if (JSON.stringify(product).includes('CHiQ')) {
+    categories.push({
+      CategoriaProductoCategoria: 'CHiQ',
+      ProductoId: productId
+    })
+  }
+  if (JSON.stringify(product).includes('Google')) {
+    categories.push({
+      CategoriaProductoCategoria: 'Google',
+      ProductoId: productId
+    })
+  }
+  if (JSON.stringify(product).includes('LG')) {
+    categories.push({
+      CategoriaProductoCategoria: 'LG',
+      ProductoId: productId
+    })
+  }
+  if (JSON.stringify(product).includes('Philips')) {
+    categories.push({
+      CategoriaProductoCategoria: 'Philips',
+      ProductoId: productId
+    })
+  }
+  if (JSON.stringify(product).includes('Samsung')) {
+    categories.push({
+      CategoriaProductoCategoria: 'Samsung',
+      ProductoId: productId
+    })
+  }
   if (JSON.stringify(product).includes('Apple')) {
     categories.push({
       CategoriaProductoCategoria: 'Apple',
