@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: Math.floor(Math.random() * (200 - 100)) + 100
     },
+    cantidadInicial: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1000
+    },
     caracteristicas: {
       type: DataTypes.TEXT,
       defaultValue: ''

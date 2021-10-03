@@ -11,23 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       CategoriaProducto.belongsToMany(models.Producto, {
-        through: 'Categoria'
+        through: models.Categoria
       })
       CategoriaProducto.belongsToMany(models.Cliente, {
-        through: 'Intereses'
+        through: models.Interes
       })
     }
   };
   CategoriaProducto.init({
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     categoria: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
+      unique: true
     }
   }, {
     sequelize,
