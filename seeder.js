@@ -126,7 +126,7 @@ function generateOpinions() {
     const prod = Math.ceil(Math.random() * 70);
     return {
       id: index + 1,
-      valoracion: Math.floor(Math.random() * 5),
+      valoracion: Math.floor(Math.random() * 6),
       opinion: lorem.generateParagraphs(Math.ceil(Math.random() * 5)),
       ClienteId: cli,
       ProductoId: prod
