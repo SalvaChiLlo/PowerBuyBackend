@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     valoracion: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     opinion: {
