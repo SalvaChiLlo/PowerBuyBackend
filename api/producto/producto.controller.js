@@ -26,10 +26,13 @@ function handleCatch(error) {
 }
 
 async function getData(input) {
-  if (input.length) {
-    return await input.map(item => item.get())
+  try {
+    return input.get();
+  } catch (_) {
+    if (input.length > 0) {
+      return await input.map(item => item.get())
+    }
   }
-  return input.get();
 }
 
 async function index(req, res) {
@@ -39,7 +42,6 @@ async function index(req, res) {
     })
 
     const promises = productos.map(async (product) => {
-      console.log(product)
       const productData = product.get();
       const opiniones = (await product.getOpinions());
       const categorias = (await product.getCategorias());
