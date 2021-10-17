@@ -26,7 +26,10 @@ function handleCatch(error) {
 }
 
 async function getData(input) {
-  return await input.map(item => item.get())
+  if (input.length) {
+    return await input.map(item => item.get())
+  }
+  return input.get();
 }
 
 async function index(req, res) {
@@ -94,6 +97,18 @@ async function show(req, res, next) {
     producto = producto[0].get();
     producto.opiniones = await getData(opiniones)
     producto.categorias = await getData(categorias)
+
+    let _opiniones = opiniones.map(async (opinion) => {
+      const opinionData = opinion.get();
+      const clientes = await opinion.getCliente();
+      opinionData.cliente = await getData(clientes)
+
+      return opinionData;
+    })
+
+    _opiniones = await Promise.all(_opiniones)
+    producto.opiniones = _opiniones;
+
     res.json(producto);
 
   } catch (error) {
