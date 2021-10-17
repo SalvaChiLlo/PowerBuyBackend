@@ -120,10 +120,10 @@ function generateProductos() {
 }
 
 function generateOpinions() {
-  return Array(200).fill(1).map((_, index) => {
+  return Array(500).fill(1).map((_, index) => {
     const valoraciones = ['Muy Bueno', 'Bueno', 'Malo', 'Muy Malo']
     const cli = Math.ceil(Math.random() * CLIENTE_CANTIDAD);
-    const prod = Math.ceil(Math.random() * 70);
+    const prod = Math.ceil(Math.random() * products.length);
     return {
       id: index + 1,
       valoracion: Math.floor(Math.random() * 6),
