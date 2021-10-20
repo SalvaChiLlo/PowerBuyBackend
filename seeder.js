@@ -9,7 +9,7 @@ const { Opinion } = require('./sqldb');
 const { Producto } = require('./sqldb');
 const products = require('./DATA.json');
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
-const CLIENTE_CANTIDAD = 20;
+const CLIENTE_CANTIDAD = 100;
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
     max: 4,
@@ -120,7 +120,7 @@ function generateProductos() {
 }
 
 function generateOpinions() {
-  return Array(500).fill(1).map((_, index) => {
+  return Array(1000).fill(1).map((_, index) => {
     const valoraciones = ['Muy Bueno', 'Bueno', 'Malo', 'Muy Malo']
     const cli = Math.ceil(Math.random() * CLIENTE_CANTIDAD);
     const prod = Math.ceil(Math.random() * products.length);
