@@ -124,9 +124,21 @@ function generateOpinions() {
     const valoraciones = ['Muy Bueno', 'Bueno', 'Malo', 'Muy Malo']
     const cli = Math.ceil(Math.random() * CLIENTE_CANTIDAD);
     const prod = Math.ceil(Math.random() * products.length);
+    let valoracion = Math.ceil(Math.random() * 5);
+
+    if (Math.random > 0.1) {
+      if (Math.random > 0.5) {
+        valoracion = 5;
+      } else {
+        valoracion = 4;
+      }
+    } else {
+      valoracion = Math.ceil(Math.random() * 5)
+    }
+
     return {
       id: index + 1,
-      valoracion: Math.ceil(Math.random() * 5),
+      valoracion,
       opinion: lorem.generateParagraphs(Math.ceil(Math.random() * 5)),
       ClienteId: cli,
       ProductoId: prod
