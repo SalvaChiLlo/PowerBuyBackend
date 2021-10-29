@@ -1,6 +1,12 @@
 'use strict';
 
 const { Router } = require('express');
+const apicache = require('apicache')
+
+let cache = apicache.options({
+  respectCacheControl: true,
+  debug: true
+}).middleware;
 
 const Producto = require('./producto.controller');
 

@@ -3,7 +3,7 @@
 const { Producto, Categoria, Opinion } = require('../../sqldb');
 const config = require('../../config/environment');
 const jwt = require('jsonwebtoken');
-const { response } = require('../..');
+const db = require('../../sqldb')
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -38,21 +38,22 @@ async function getData(input) {
 async function index(req, res) {
   try {
     const productos = await Producto.findAll({
-      order: [['id', 'ASC']]
+      order: [['id', 'ASC']],
+      include: [
+        {
+          model: db.Opinion,
+          include: {
+            model: db.Cliente
+          }
+        },
+        {
+          model: db.CategoriaProducto,
+          as: 'Categorias',
+        },
+      ]
     })
 
-    const promises = productos.map(async (product) => {
-      const productData = product.get();
-      const opiniones = (await product.getOpinions());
-      const categorias = (await product.getCategorias());
-      productData.opiniones = await getData(opiniones)
-      productData.categorias = await getData(categorias)
-      return productData
-    })
-
-    const response = await Promise.all(promises)
-
-    res.status(200).json(response);
+    res.status(200).json(productos);
   } catch (error) {
     handleCatch(error)
   }
@@ -89,27 +90,18 @@ async function show(req, res, next) {
   let { id } = req.params;
   id = +id
   try {
-    let producto = await Producto.findAll({ where: { id } })
-    const opiniones = (await producto[0].getOpinions());
-    const categorias = (await producto[0].getCategorias());
-    if (!producto) {
-      return res.status(404).end();
-    }
-
-    producto = producto[0].get();
-    producto.opiniones = await getData(opiniones)
-    producto.categorias = await getData(categorias)
-
-    let _opiniones = opiniones.map(async (opinion) => {
-      const opinionData = opinion.get();
-      const clientes = await opinion.getCliente();
-      opinionData.cliente = await getData(clientes)
-
-      return opinionData;
+    let producto = await Producto.findAll({
+      where: { id },
+      include: [
+        {
+          model: db.Localidad,
+          include: {
+            model: db.Provincia
+          }
+        }
+      ]
     })
 
-    _opiniones = await Promise.all(_opiniones)
-    producto.opiniones = _opiniones;
 
     res.json(producto);
 

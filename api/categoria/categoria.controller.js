@@ -35,18 +35,6 @@ async function index(req, res) {
       order: [['categoria', 'ASC']]
     })
 
-    // const promises = productos.map(async (product) => {
-    //   console.log(product)
-    //   const productData = product.get();
-    //   const opiniones = (await product.getOpinions());
-    //   const categorias = (await product.getCategorias());
-    //   productData.opiniones = await getData(opiniones)
-    //   productData.categorias = await getData(categorias)
-    //   return productData
-    // })
-
-    // const response = await Promise.all(promises)
-
     res.status(200).json(categorias);
   } catch (error) {
     handleCatch(error)
