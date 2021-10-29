@@ -91,6 +91,7 @@ function generateClientes() {
         username: `User${i}`,
         password: '12345678',
         email: `user${i}@user${i}.com`,
+        imageURL: `https://robohash.org/${i}.png`
       }
     )
   }
