@@ -19,10 +19,10 @@ function handleError(res, statusCode) {
   };
 }
 
-function handleCatch(error) {
+function handleCatch(error, res) {
   console.log('--------------------------------------------------------------------------')
   console.error(error)
-  process.exit(1)
+  res.status(500).end();
 }
 
 async function getData(input) {
@@ -37,7 +37,7 @@ async function index(req, res) {
 
     res.status(200).json(categorias);
   } catch (error) {
-    handleCatch(error)
+    handleCatch(error, res)
   }
 }
 
@@ -92,7 +92,7 @@ async function show(req, res, next) {
     res.json(producto);
 
   } catch (error) {
-    handleCatch(error)
+    handleCatch(error, res)
   }
 }
 

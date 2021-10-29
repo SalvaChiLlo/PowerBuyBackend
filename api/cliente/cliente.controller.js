@@ -4,6 +4,7 @@ const { Cliente, Categoria, Opinion } = require('../../sqldb');
 const config = require('../../config/environment');
 const jwt = require('jsonwebtoken');
 const { response } = require('../..');
+const db = require('../../sqldb')
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -19,10 +20,10 @@ function handleError(res, statusCode) {
   };
 }
 
-function handleCatch(error) {
+function handleCatch(error, res) {
   console.log('--------------------------------------------------------------------------')
   console.error(error)
-  process.exit(1)
+  res.status(500).end();
 }
 
 async function getData(input) {
@@ -31,50 +32,40 @@ async function getData(input) {
 
 async function index(req, res) {
   try {
-    const productos = await Cliente.findAll({
-      order: [['id', 'ASC']]
+    const clientes = await Cliente.findAll({
+      order: [['id', 'ASC']],
+      include: [
+        {
+          model: db.Opinion,
+          include: [
+            { model: db.Producto }
+          ]
+        },
+        {
+          model: db.CategoriaProducto
+        }
+      ]
     })
 
-    const promises = productos.map(async (product) => {
-      console.log(product)
-      const productData = product.get();
-      const opiniones = (await product.getOpinions());
-      const categorias = (await product.getCategorias());
-      productData.opiniones = await getData(opiniones)
-      productData.categorias = await getData(categorias)
-      return productData
-    })
-
-    const response = await Promise.all(promises)
-
-    res.status(200).json(response);
+    res.status(200).json(clientes);
   } catch (error) {
-    handleCatch(error)
+    handleCatch(error, res)
   }
 }
 
 /**
  * Creates a new product
  */
-function create(req, res) {
-  throw Error(`
---------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------
-|||Falta implementar||||||Falta implementar||||||Falta implementar||||||Falta implementar|||
---------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------
-`);
-  const newUser = Cliente.build(req.body);
-  newUser.setDataValue('provider', 'local');
-  newUser.setDataValue('role', 'user');
-  return newUser.save()
-    .then((user) => {
-      const token = jwt.sign({ id: user.id }, config.secrets.session, {
-        expiresIn: 60 * 60 * 5,
-      });
-      res.json({ token });
-    })
-    .catch(validationError(res));
+async function create(req, res) {
+
+  try {
+    const newCliente = Cliente.build(req.body);
+    const savedClient = await newCliente.save()
+    console.log(savedClient)
+    res.status(200).json(savedClient);
+  } catch (error) {
+    handleCatch(error, res)
+  }
 }
 
 /**
@@ -83,10 +74,24 @@ function create(req, res) {
 async function show(req, res, next) {
   let { id } = req.params;
   try {
-    let cliente = await Cliente.findAll({ where: { id } })
-    res.json(cliente);
+    const cliente = await Cliente.findAll({
+      where: { id },
+      include: [
+        {
+          model: db.Opinion,
+          include: [
+            { model: db.Producto }
+          ]
+        },
+        {
+          model: db.CategoriaProducto
+        }
+      ]
+    })
+
+    res.status(200).json(cliente);
   } catch (error) {
-    handleCatch(error)
+    handleCatch(error, res)
   }
 }
 

@@ -19,10 +19,10 @@ function handleError(res, statusCode) {
   };
 }
 
-function handleCatch(error) {
+function handleCatch(error, res) {
   console.log('--------------------------------------------------------------------------')
   console.error(error)
-  process.exit(1)
+  res.status(500).end();
 }
 
 async function getData(input) {
@@ -48,14 +48,13 @@ async function index(req, res) {
         },
         {
           model: db.CategoriaProducto,
-          as: 'Categorias',
         },
       ]
     })
 
     res.status(200).json(productos);
   } catch (error) {
-    handleCatch(error)
+    handleCatch(error, res)
   }
 }
 
@@ -90,23 +89,24 @@ async function show(req, res, next) {
   let { id } = req.params;
   id = +id
   try {
-    let producto = await Producto.findAll({
+    const productos = await Producto.findAll({
       where: { id },
       include: [
         {
-          model: db.Localidad,
+          model: db.Opinion,
           include: {
-            model: db.Provincia
+            model: db.Cliente
           }
-        }
+        },
+        {
+          model: db.CategoriaProducto,
+        },
       ]
     })
 
-
-    res.json(producto);
-
+    res.status(200).json(productos);
   } catch (error) {
-    handleCatch(error)
+    handleCatch(error, res)
   }
 }
 

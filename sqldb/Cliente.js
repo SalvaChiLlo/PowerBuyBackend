@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Cliente.hasMany(models.Opinion)
+      Cliente.belongsToMany(models.CategoriaProducto, {
+        through: models.Interes
+      })
     }
   };
   Cliente.init({

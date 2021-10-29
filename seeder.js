@@ -78,7 +78,6 @@ function generateClientes() {
   generateIntereses(1);
   const userList = [
     {
-      id: 1,
       username: 'Admin',
       password: 'admin',
       email: 'admin@admin.com',
@@ -89,7 +88,6 @@ function generateClientes() {
     generateIntereses(i + 2)
     userList.push(
       {
-        id: i + 2,
         username: `User${i}`,
         password: '12345678',
         email: `user${i}@user${i}.com`,

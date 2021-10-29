@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Opinion.belongsTo(models.Cliente)
+      Opinion.belongsTo(models.Producto)
     }
   };
   Opinion.init({
