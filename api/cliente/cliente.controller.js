@@ -59,7 +59,9 @@ async function index(req, res) {
 async function create(req, res) {
 
   try {
-    const newCliente = Cliente.build(req.body);
+    const body = req.body
+    const newCliente = Cliente.build(body);
+
     const savedClient = await newCliente.save()
     console.log(savedClient)
     res.status(200).json(savedClient);
