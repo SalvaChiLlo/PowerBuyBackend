@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     imageURL: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
     }
   }, {
