@@ -73,23 +73,45 @@ async function create(req, res) {
  */
 async function show(req, res, next) {
   let { id } = req.params;
-  try {
-    const cliente = await Cliente.findAll({
-      where: { id },
-      include: [
-        {
-          model: db.Opinion,
-          include: [
-            { model: db.Producto }
-          ]
-        },
-        {
-          model: db.CategoriaProducto
-        }
-      ]
-    })
 
-    res.status(200).json(cliente);
+  try {
+    console.log(req.query)
+    if (req.query.email) {
+      const cliente = await Cliente.findAll({
+        where: { email: id },
+        include: [
+          {
+            model: db.Opinion,
+            include: [
+              { model: db.Producto }
+            ]
+          },
+          {
+            model: db.CategoriaProducto
+          }
+        ]
+      })
+
+      res.status(200).json(cliente);
+    } else {
+      const cliente = await Cliente.findAll({
+        where: { id },
+        include: [
+          {
+            model: db.Opinion,
+            include: [
+              { model: db.Producto }
+            ]
+          },
+          {
+            model: db.CategoriaProducto
+          }
+        ]
+      })
+
+      res.status(200).json(cliente);
+    }
+
   } catch (error) {
     handleCatch(error, res)
   }
