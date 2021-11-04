@@ -14,7 +14,7 @@ expressConfig(app);
 routeConfig(app);
 
 function startServer() {
-  server.listen(config.port, config.ip, () => {
+  server.listen(config.port, () => {
     console.log(`Server is listening on http://${config.ip}:${config.port}, in ${app.get('env')} mode`);
   });
 }
