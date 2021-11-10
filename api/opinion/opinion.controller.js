@@ -63,8 +63,18 @@ async function create(req, res) {
     const newOpinion = Opinion.build(body);
 
     const savedOpinion = await newOpinion.save()
-    console.log(savedOpinion)
-    res.status(200).json(savedOpinion);
+
+    const fullOpinion = await Opinion.findAll({
+      where: {
+        id: savedOpinion.id
+      },
+      include: [
+        { model: db.Cliente }
+      ]
+    })
+
+    console.log(fullOpinion)
+    res.status(200).json(fullOpinion);
   } catch (error) {
     handleCatch(error, res)
   }
