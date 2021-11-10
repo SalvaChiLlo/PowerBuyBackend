@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Opinion.init({
     id: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,

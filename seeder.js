@@ -136,7 +136,6 @@ function generateOpinions() {
     }
 
     return {
-      id: index + 1,
       valoracion,
       opinion: lorem.generateParagraphs(Math.ceil(Math.random() * 5)),
       ClienteId: cli,
