@@ -173,9 +173,9 @@ async function create(req, res) {
 // }
 
 module.exports = {
-  index,
-  show,
-  create,
-  destroy,
-  changePassword,
+  // index,
+  // show,
+  create
+  // destroy,
+  // changePassword,
 };
