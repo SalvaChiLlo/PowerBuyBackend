@@ -141,35 +141,26 @@ function destroy(req, res) {
 /**
  * Change a users password
  */
-function changePassword(req, res) {
-  throw Error(`
---------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------
-|||Falta implementar||||||Falta implementar||||||Falta implementar||||||Falta implementar|||
---------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------
-  `);
-  const userId = req.user._id;
-  const oldPass = String(req.body.oldPassword);
-  const newPass = String(req.body.newPassword);
+function update(req, res) {
+  const body = req.body
 
-  return Cliente.find({
+  return Cliente.findAll({
     where: {
-      id: userId,
+      id: body.id,
     },
   })
     .then(user => {
-      if (user.authenticate(oldPass)) {
-        user.password = newPass;
-        return user.save()
-          .then(() => {
-            res.status(204).end();
-          })
-          .catch(validationError(res));
-      } else {
-        return res.status(403).end();
-      }
-    });
+      user[0].username = body.username;
+      user[0].email = body.email;
+      user[0].imageURL = body.imageURL;
+      user[0].favoritos = body.favoritos;
+      return user[0].save()
+        .then(() => {
+          res.status(204).end();
+        })
+        .catch(validationError(res));
+    })
+    .catch(console.log)
 }
 
 module.exports = {
@@ -177,5 +168,5 @@ module.exports = {
   show,
   create,
   destroy,
-  changePassword,
+  update,
 };

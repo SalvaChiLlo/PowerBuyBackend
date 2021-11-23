@@ -8,6 +8,7 @@ const router = new Router();
 
 router.get('/', Cliente.index);
 router.post('/', Cliente.create);
+router.put('/', Cliente.update);
 router.get('/:id', Cliente.show);
 router.delete('/:id', Cliente.destroy);
 
