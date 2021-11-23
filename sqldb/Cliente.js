@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     favoritos: {
       type: DataTypes.TEXT,
-      defaultValues: ""
+      defaultValues: "[]"
     }
   }, {
     sequelize,
