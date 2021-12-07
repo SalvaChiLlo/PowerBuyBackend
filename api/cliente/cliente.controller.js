@@ -154,6 +154,7 @@ function update(req, res) {
       user[0].email = body.email;
       user[0].imageURL = body.imageURL;
       user[0].favoritos = body.favoritos;
+      user[0].historial = body.historial;
       return user[0].save()
         .then(() => {
           res.status(204).end();

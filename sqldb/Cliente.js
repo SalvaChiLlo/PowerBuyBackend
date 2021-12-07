@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
     favoritos: {
       type: DataTypes.TEXT,
       defaultValues: "[]"
+    },
+    historial: {
+      type: DataTypes.TEXT,
+      defaultValues: "[]"
     }
   }, {
     sequelize,
