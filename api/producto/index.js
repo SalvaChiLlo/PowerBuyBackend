@@ -12,7 +12,7 @@ const Producto = require('./producto.controller');
 
 const router = new Router();
 
-router.get('/', Producto.index);
+router.get('/', Producto.index, cache('5 minutes'));
 router.post('/', Producto.create);
 router.get('/:id', Producto.show);
 router.delete('/:id', Producto.destroy);
