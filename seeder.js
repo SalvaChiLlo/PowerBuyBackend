@@ -10,6 +10,7 @@ const { Producto } = require('./sqldb');
 const products = require('./DATA.json');
 const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 const CLIENTE_CANTIDAD = 100;
+const nombres = ['Rubén Plinio Quevedo Sebastián','Remedios Alfaro López','Emilio Uriarte Morera','Juan Pablo Macias Borrell','Adelia Abellán Pastor','Joaquina de Royo','Hortensia Revilla Lobato','Nando Nogués','Ariel Caro Antúnez','Adolfo Guijarro Sevillano','Jose Angel Mir Castellanos','Marcelo Baños Gallego','Moisés Expósito-Frías','Manuel Acero Enríquez','Marta Rosa María Salgado Busquets','Valero Dominguez Segovia','Fito Artemio Samper Caparrós','Micaela Seco Enríquez','Maite Jáuregui Santamaria','Benito Feijoo Ferrero','Vicenta Mir Alberdi','Luisina Egea Salinas','Febe Expósito','Samuel Leon-Ferrando','Telmo Solís','Reynaldo Carrera','Hermenegildo Piquer Guzmán','Che de Perales','Valeria del Pérez','Diego Grande-Arnal','Silvestre Roldan Orozco','María Del Carmen Rodriguez Pujol','Patricio Bravo-Grande','Ana Belén de Casas','Ale Huerta Pujadas','Alondra Plana Vidal','Cebrián Trillo','Plinio Atienza Cabanillas','Quirino Pino Agustín','Edu Ramis Carballo','Graciela María Fernanda Nuñez Beltrán','Ana Juan Higueras','Artemio Garay Ojeda','Paulina Calvet Carrillo','Amada Querol','Humberto Calixto Sanz Alsina','Olga Prat Casares','Nydia Velázquez Campoy','Chuy Chico-Izaguirre','Dora Quesada Castro','Isidro Manso Marti','Samanta Escudero-Nuñez','Consuelo de Solana','Ainara Diana Pedrero Amor','Sergio Mínguez Castañeda','Luz Arranz Zabala','Severo Lastra-Guijarro','María Del Carmen Manso Ramis','Elías Mateos Lillo','Haydée Cañizares Sebastián','Flora Vives-Samper','Roberto Amorós Criado','Guiomar Solsona Cózar','Luz Villena Castrillo','Gastón Bou','Salomón Batlle Osorio','José Manuel Quesada Jódar','Sandra Barrios','Gervasio Palacios Céspedes','Bibiana Magdalena Sandoval Vilalta','Zaida Vicens','Haroldo Fonseca Rodrigo','Maxi Borrell Nogués','Julie Villegas Rodríguez','Albano Alcántara Santamaría','Angélica Cabrera Díaz','Adelaida de Adadia','Pili de Abril','Amalia Verdugo Merino','Purificación Trillo Girón','Carlota Alcaraz Duarte','Brunilda Camacho Casals','Feliciano Segismundo Soto Haro','Buenaventura Flores','Lino Tolosa-Belmonte','Trinidad Bernat Carrasco','Geraldo Peral-Amat','Gracia Campillo Mendez','Jenaro Morera-Mendoza','Gertrudis Lilia Amigó Hernandez','Balduino Ruy Guzmán Arenas','Benjamín Pancho Tejada Borja','Eusebio Peinado','Juan Luis Bernad Escribano','Fulgencio Llorente Zabaleta','Evelia Roma','Martina Tomás Madrigal','Cleto Hoz Manzano','Fito Díaz Pera','Gilberto Diez Bonet']
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
     max: 4,
@@ -84,18 +85,18 @@ function generateClientes() {
     }
   ]
 
-  for (let i = 0; i < CLIENTE_CANTIDAD + 1; i++) {
+  for (let i = 0; i < nombres.length; i++) {
     generateIntereses(i + 2)
     userList.push(
       {
-        username: `User${i}`,
+        username: nombres[i],
         password: '12345678',
         email: `user${i}@user${i}.com`,
         imageURL: `https://robohash.org/${i}.png`
       }
     )
   }
-  return userList;
+  return userList; 
 }
 
 function generateProductos() {
@@ -123,18 +124,11 @@ function generateOpinions() {
     const valoraciones = ['Muy Bueno', 'Bueno', 'Malo', 'Muy Malo']
     const cli = Math.ceil(Math.random() * CLIENTE_CANTIDAD);
     const prod = Math.ceil(Math.random() * products.length);
-    let valoracion = Math.ceil(Math.random() * 5);
-
-    if (Math.random > 0.1) {
-      if (Math.random > 0.5) {
-        valoracion = 5;
-      } else {
-        valoracion = 4;
-      }
-    } else {
-      valoracion = Math.ceil(Math.random() * 5)
+    let valoracion = Math.ceil(Math.random() * 10);
+    if (valoracion > 5) {
+      valoracion = 5;
     }
-
+    
     return {
       valoracion,
       opinion: lorem.generateParagraphs(Math.ceil(Math.random() * 5)),
